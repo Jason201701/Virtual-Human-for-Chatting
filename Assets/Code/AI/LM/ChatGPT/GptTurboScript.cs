@@ -13,7 +13,8 @@ public class GptTurboScript : MonoBehaviour
     /// <summary>
     /// api URL
     /// </summary>
-    private string m_ApiUrl = "https://api.openai-proxy.com/v1/chat/completions";
+    // private string m_ApiUrl = "https://api.openai-proxy.com/v1/chat/completions";
+    private string m_ApiUrl = "https://maze-ce.openai.azure.com/openai/deployments/gpt-35-turbo/chat/completions?api-version=2023-05-15";
     /// <summary>
     /// gpt-3.5-turbo
     /// </summary>
@@ -57,7 +58,7 @@ public class GptTurboScript : MonoBehaviour
         {
             PostData _postData = new PostData
             {
-                model = m_gptModel,
+                //model = m_gptModel,
                 messages = m_DataList
             };
 
@@ -67,7 +68,8 @@ public class GptTurboScript : MonoBehaviour
             request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
 
             request.SetRequestHeader("Content-Type", "application/json");
-            request.SetRequestHeader("Authorization", string.Format("Bearer {0}", _openAI_Key));
+            //request.SetRequestHeader("Authorization", string.Format("Bearer {0}", _openAI_Key));
+            request.SetRequestHeader("api-key", _openAI_Key);
 
             yield return request.SendWebRequest();
             if (request.responseCode == 200)
